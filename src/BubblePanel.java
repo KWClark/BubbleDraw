@@ -1,4 +1,5 @@
 import javax.swing.JPanel;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class BubblePanel extends JPanel {
@@ -11,6 +12,16 @@ public class BubblePanel extends JPanel {
 
         setBackground(Color.BLACK); //Set background for panel to black
         setPreferredSize(new Dimension(600,400)); //Set size
+    }
+
+    public void paintComponent(Graphics page) { //Overriding paint method
+        super.paintComponent(page);
+
+        //draw all the bubbles from bubblelist
+        //Write the number of bubbles on the screen
+
+        page.setColor(Color.GREEN);
+        page.drawString("Count: " + bubbleList.size(), 5, 15);
     }
 
 
