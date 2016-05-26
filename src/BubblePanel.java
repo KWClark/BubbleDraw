@@ -122,9 +122,15 @@ public class BubblePanel extends JPanel {
             xspeed = (int) (Math.random() * MAX_SPEED * 2 - MAX_SPEED);  // Has the chance to go -5 to +5 in either direction
             yspeed = (int) (Math.random() * MAX_SPEED * 2 - MAX_SPEED);  // Has the chance to go -5 to +5 in either direction
 
+            if (xspeed == 0 && yspeed == 0) { //Now every bubble will have movement
+                xspeed = 1;
+                xspeed = 1;
+            }
+
         }
 
         public void update() {
+
             x += xspeed;
             y += yspeed;
 
