@@ -13,6 +13,8 @@ public class BubblePanel extends JPanel {
         bubbleList = new ArrayList<Bubble>(); //Set up array list
 
         addMouseListener(new BubbleListener());
+        addMouseMotionListener(new BubbleListener());
+        addMouseWheelListener(new BubbleListener());
 
         setBackground(Color.BLACK); //Set background for panel to black
         setPreferredSize(new Dimension(600,400)); //Set size
@@ -32,7 +34,7 @@ public class BubblePanel extends JPanel {
         page.drawString("Count: " + bubbleList.size(), 5, 15);
     }
 
-    private class BubbleListener implements MouseListener, MouseMotionListener {
+    private class BubbleListener implements MouseListener, MouseMotionListener, MouseWheelListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -71,6 +73,12 @@ public class BubblePanel extends JPanel {
         @Override
         public void mouseMoved(MouseEvent e) {
 
+        }
+
+        @Override
+        public void mouseWheelMoved(MouseWheelEvent e) {
+            // Change the bubble size whenever the wheel is moved
+            size -= e.getWheelRotation();
         }
     }
 
