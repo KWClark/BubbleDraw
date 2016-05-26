@@ -7,7 +7,7 @@ import javax.swing.Timer;
 public class BubblePanel extends JPanel {
 
     private ArrayList<Bubble> bubbleList;
-    private int size = 40;
+    private int size = 30;
     private Timer timer;
     private final int DELAY = 33; // ms of delay for 30 fps
 
@@ -27,13 +27,13 @@ public class BubblePanel extends JPanel {
         timer.start();
     }
 
-    public void paintComponent(Graphics page) { //Overriding paint method
+    public void paintComponent(Graphics page) {
         super.paintComponent(page);
 
         //draw all the bubbles from bubblelist
         for (Bubble bubble:bubbleList) {
             page.setColor(bubble.color);
-            page.fillOval(bubble.x - bubble.size/2, bubble.y - bubble.size/2, bubble.size, bubble.size);
+            page.fillOval(bubble.x - bubble.size/2, bubble.y - bubble.size/2, bubble.size, bubble.size); // So it looks like we clicked right in the center of the bubble
         }
         //Write the number of bubbles on the screen
 
@@ -108,6 +108,9 @@ public class BubblePanel extends JPanel {
         public int y;
         public int size;
         public Color color;
+        public int xspeed;
+        public int yspeed;
+        private final int MAX_SPEED = 5;
 
         public Bubble(int newX, int newY, int newSize) { //Constructor
             x = newX;
@@ -116,19 +119,23 @@ public class BubblePanel extends JPanel {
             color = new Color((float)Math.random(), //Everytime bubble is created it will use a random color
                     (float)Math.random(),
                     (float)Math.random());
+            xspeed = (int) (Math.random() * MAX_SPEED * 2 - MAX_SPEED);  // Has the chance to go -5 to +5 in either direction
+            yspeed = (int) (Math.random() * MAX_SPEED * 2 - MAX_SPEED);  // Has the chance to go -5 to +5 in either direction
+
         }
 
         public void update() {
-            Double num = (Math.random() * 50);
+            x += xspeed;
+            y += yspeed;
 
-            y -= (int) (Math.random() * 5);; // Float each bubble up 3 pixels per frame
+            // Collision detection with the edges of the panel
+            if (x < 0 || x > getWidth()) {
+                xspeed = -1 * xspeed; // Reverses the speed if it meets collision
+            }
+            if (y < 0 || y > getHeight()) {
+                yspeed = -yspeed; // Same as above just another way to write it
+            }
 
-            if (num > 25) {
-                x -= (int) (Math.random() * 2);
-            }
-            else {
-                x += (int) (Math.random() * 2);
-            }
 
         }
 
