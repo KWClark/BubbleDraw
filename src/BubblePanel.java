@@ -25,7 +25,7 @@ public class BubblePanel extends JPanel {
 
         //draw all the bubbles from bubblelist
         for (Bubble bubble:bubbleList) {
-            page.setColor(Color.YELLOW);
+            page.setColor(bubble.color);
             page.fillOval(bubble.x - bubble.size/2, bubble.y - bubble.size/2, bubble.size, bubble.size);
         }
         //Write the number of bubbles on the screen
@@ -90,11 +90,15 @@ public class BubblePanel extends JPanel {
         public int x;
         public int y;
         public int size;
+        public Color color;
 
         public Bubble(int newX, int newY, int newSize) { //Constructor
             x = newX;
             y = newY;
             size = newSize;
+            color = new Color((float)Math.random(), //Everytime bubble is created it will use a random color
+                    (float)Math.random(),
+                    (float)Math.random());
         }
     }
 }
