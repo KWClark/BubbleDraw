@@ -23,7 +23,8 @@ public class BubblePanel extends JPanel {
 
         //draw all the bubbles from bubblelist
         for (Bubble bubble:bubbleList) {
-            page.fillOval(bubble.x, bubble.y, bubble.size, bubble.size);
+            page.setColor(Color.YELLOW);
+            page.fillOval(bubble.x - bubble.size/2, bubble.y - bubble.size/2, bubble.size, bubble.size);
         }
         //Write the number of bubbles on the screen
 
@@ -31,7 +32,7 @@ public class BubblePanel extends JPanel {
         page.drawString("Count: " + bubbleList.size(), 5, 15);
     }
 
-    private class BubbleListener implements MouseListener {
+    private class BubbleListener implements MouseListener, MouseMotionListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -57,6 +58,18 @@ public class BubblePanel extends JPanel {
 
         @Override
         public void mouseExited(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            //Add to the bubblelist my mouse location and repaint
+            bubbleList.add(new Bubble(e.getX(), e.getY(), size));
+            repaint();
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
 
         }
     }
